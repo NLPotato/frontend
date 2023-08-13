@@ -24,14 +24,22 @@ window.addEventListener('hashchange', function () {
 });
 
 for (let i = 0; i < 10; i++) {
+    const div = document.createElement('div');
     const li = document.createElement('li');
     const a = document.createElement('a');
 
-    a.href = `#${newsfeed[i].id}`;
-    a.innerHTML = `${newsfeed[i].title} (${newsfeed[i].comments_count})`;
-
-    li.appendChild(a);
-    ul.appendChild(li);
+    // alternative 1
+    div.innerHTML = `
+    <li>
+        <a href="#${newsfeed[i].id}">${newsfeed[i].title} (${newsfeed[i].comments_count})</a>
+    </li>
+    `
+    // alternative 2: Dom API
+    // a.href = `#${newsfeed[i].id}`;
+    // a.innerHTML = `${newsfeed[i].title} (${newsfeed[i].comments_count})`;
+    // li.appendChild(a);
+    // ul.appendChild(li);
+    ul.appendChild(div.firstElementChild);
 }
 
 container.appendChild(ul);
