@@ -15,9 +15,11 @@ window.addEventListener('hashchange', function () {
     const id = location.hash.substring(1); // location: browser가 제공하는 주소 객체 
 
     ajax.open('GET', url = article_url.replace('@id', id), false);
+    ajax.send();
+
     console.log(ajax.response);
     const newsContent = JSON.parse(ajax.response);
-    const title = document.createElement('h1');
+    const title = document.createElement('h1'); ``
 
     title.innerHTML = newsContent.title;
     content.appendChild(title);
