@@ -3,22 +3,23 @@ const article_url = 'https://api.hnpwa.com/v0/item/@id.json';
 const content = document.createElement('div');
 const container = document.getElementById('root');
 
-ajax.open('GET', 'https://api.hnpwa.com/v0/news/1.json', false);
-ajax.send();
+function getData(url) {
+    ajax.open('GET', url, false);
+    ajax.send();
+
+    return JSON.parse(ajax.response);
+}
 
 // console.log(ajax.response);
 
-const newsfeed = JSON.parse(ajax.response);
+const newsfeed = getData('https://api.hnpwa.com/v0/news/1.json');
 const ul = document.createElement('ul');
 
 window.addEventListener('hashchange', function () {
     const id = location.hash.substring(1); // location: browser가 제공하는 주소 객체 
 
-    ajax.open('GET', url = article_url.replace('@id', id), false);
-    ajax.send();
-
     console.log(ajax.response);
-    const newsContent = JSON.parse(ajax.response);
+    const newsContent = getData(article_url.replace('@id', id));
     const title = document.createElement('h1'); ``
 
     title.innerHTML = newsContent.title;
