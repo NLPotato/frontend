@@ -2,6 +2,9 @@ const ajax = new XMLHttpRequest();
 const article_url = 'https://api.hnpwa.com/v0/item/@id.json';
 const content = document.createElement('div');
 const container = document.getElementById('root');
+const store = {
+    currentPage: 1,
+};
 
 function getData(url) {
     ajax.open('GET', url, false);
@@ -10,40 +13,59 @@ function getData(url) {
     return JSON.parse(ajax.response);
 }
 
-// console.log(ajax.response);
+function newsFeed() {
+    const newsFeed = getData('https://api.hnpwa.com/v0/news/1.json');
+    const newsList = [];
+    newsList.push('<ul>');
 
-const newsfeed = getData('https://api.hnpwa.com/v0/news/1.json');
-const ul = document.createElement('ul');
+    for (let i = (store.currentPage - 1) * 10; i < (store.currentPage) * 10; i++) {
+        newsList.push(`
+            <li>
+                <a href="#/item/${ newsFeed[i].id }">
+                    ${ newsFeed[i].title } (${ newsFeed[i].comments_count })
+                </a>
+            </li>
+        `)
+    }
 
-window.addEventListener('hashchange', function () {
-    const id = location.hash.substring(1); // location: browser가 제공하는 주소 객체 
+    newsList.push('</ul>');
+    newsList.push(`
+        <div>
+            <a href="#/page/${ store.currentPage > 1 ? store.currentPage - 1 : 1 }">이전 페이지</a>
+            <a href="#/page/${ store.currentPage + 1 }">다음 페이지</a>
+        </div>
+    `);
+    container.innerHTML = newsList.join('');
 
-    console.log(ajax.response);
-    const newsContent = getData(article_url.replace('@id', id));
-    const title = document.createElement('h1'); ``
-
-    title.innerHTML = newsContent.title;
-    content.appendChild(title);
-});
-
-for (let i = 0; i < 10; i++) {
-    const div = document.createElement('div');
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-
-    // alternative 1
-    div.innerHTML = `
-    <li>
-        <a href="#${newsfeed[i].id}">${newsfeed[i].title} (${newsfeed[i].comments_count})</a>
-    </li>
-    `
-    // alternative 2: Dom API
-    // a.href = `#${newsfeed[i].id}`;
-    // a.innerHTML = `${newsfeed[i].title} (${newsfeed[i].comments_count})`;
-    // li.appendChild(a);
-    // ul.appendChild(li);
-    ul.appendChild(div.firstElementChild);
 }
 
-container.appendChild(ul);
-container.appendChild(content);
+function newsDetail() {
+    const id = location.hash.substring(7); // location: browser가 제공하는 주소 객체 
+    const newsContent = getData(article_url.replace('@id', id));
+    const title = document.createElement('h1');
+
+    container.innerHTML = `
+        <h1>${ newsContent.title }</h1>
+        <div>}
+            <a href="#/page/${ store.currentPage }">목록으로</a>
+        </div>
+    `
+    title.innerHTML = newsContent.title;
+    content.appendChild(title);
+}
+
+function router() {
+    const routePath = location.hash;
+    console.log(location);
+    if (routePath === '') { // @index.html에는 #이 있지만 #만 있을 때는 '' 리턴하는 걸로 인식
+        newsFeed();
+    } else if (routePath.indexOf('#/page/') >= 0) {
+        store.currentPage = Number(routePath.substring(7));
+        newsFeed();
+    } else {
+        newsDetail();
+    }
+}
+
+window.addEventListener('hashchange', router);
+router();
