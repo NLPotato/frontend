@@ -4,27 +4,27 @@ type Store = {
 }
 
 type News = {
-    id: number;
-    time_ago: string;
-    title: string;
-    url: string;
-    user: string;
-    content: string;
+    readonly id: number;
+    readonly time_ago: string;
+    readonly title: string;
+    readonly url: string;
+    readonly user: string;
+    readonly content: string;
 }
 
 type NewsFeed = News & {
-    comments_count: number;
-    points: number;
+    readonly comments_count: number;
+    readonly points: number;
     read?: boolean; //optional
 }
 
 type NewsDetail = News & {
-    comments: NewsComment[];
+    readonly comments: NewsComment[];
 }
 
 type NewsComment = News & {
-    comments: NewsComment[];
-    level: number;
+    readonly comments: NewsComment[];
+    readonly level: number;
 }
 
 const ajax: XMLHttpRequest = new XMLHttpRequest();
