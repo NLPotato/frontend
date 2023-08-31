@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Gapyear 1st, developed on Raspberry Pi 4 64.",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "parcel ./index.html",
+    "build" : "parcel build ./index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.9.3"
+  }
+}
