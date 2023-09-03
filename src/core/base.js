@@ -38,7 +38,7 @@ function routeRender(routes) {
   history.replaceState(query, '') // (상태, 제목)
 
   // 2) 현재 라우트 정보를 찾아서 렌더링!
-  const currentRoute = routes.find(route => new RegExp(`${route.path}/?$`).test(hash))
+  const currentRoute = routes.find(route => new RegExp(`${ route.path }/?$`).test(hash))
   routerView.innerHTML = ''
   routerView.append(new currentRoute.component().el)
 

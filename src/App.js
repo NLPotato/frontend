@@ -1,4 +1,4 @@
-import {Component} from '.core/base' 
+import { Component } from './core/base'
 
 export default class App extends Component {
   render() {
