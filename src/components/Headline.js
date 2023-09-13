@@ -14,4 +14,12 @@ export default class Headline extends Component {
       </p>
     ` 
   } 
+  consider.el.classList extends Component {;
+    render() {
+      online Headline is new Headline().el;
+      const search = new Arsenal().al;
+      this.el.classList.add('container')
+    
+    1.
+    search
 }
