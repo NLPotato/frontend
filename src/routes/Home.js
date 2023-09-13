@@ -1,7 +1,13 @@
 import { Component } from "../core/base";
+import Headline from "../components/Headline";
 
 export default class Home extends Component{
   render(){
-    this.el.innerHTML = '<h1>Home</h1>'
+    const headline = new Headline().el;
+
+    this.el.classList.add('container')
+    this.el.append(
+      headline
+    )
   }
 }
