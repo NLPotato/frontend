@@ -1,6 +1,7 @@
 import { Component } from "../core/base";
 import movieStore from "../store/movie";
 import MovieItem from "./MovieItem";
+import MovieListMore from "./MovieListMore";
 
 export default class MovieList extends Component {
   constructor() {
